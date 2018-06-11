@@ -22,9 +22,11 @@ public class AtfConfiguration implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
     private Logger logger = Logger.getLogger(AtfConfiguration.class);
 
+
     @Bean
     @Autowired
     public PropertyManager getPropertyManager() {
+        logger.info("Loading the Environment Properties");
         return new PropertyManagerImpl();
     }
 
@@ -37,9 +39,8 @@ public class AtfConfiguration implements ApplicationContextAware {
                 propertyManager.getPropertyValue(PropertyManager.BDD_SMP_WEBDRIVER_OS),
                 propertyManager.getPropertyValue(PropertyManager.BDD_SMP_WEBDRIVER_HOST),
                 propertyManager.getPropertyValue(PropertyManager.BDD_SMP_WEBDRIVER_PORT),
-                Boolean.parseBoolean(propertyManager
-                        .getPropertyValue(PropertyManager.BDD_SMP_WEBDRIVER_REMOTE)));
-        return webDriverUtility;
+                Boolean.parseBoolean(propertyManager.getPropertyValue(PropertyManager.BDD_SMP_WEBDRIVER_REMOTE)));
+                return webDriverUtility;
     }
 
 

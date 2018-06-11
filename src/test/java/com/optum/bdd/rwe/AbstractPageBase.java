@@ -12,9 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+
 
 import com.optum.bdd.core.selenium.AtfConstants;
 import com.optum.bdd.core.selenium.Browsers;
@@ -138,7 +140,6 @@ public abstract class AbstractPageBase implements PageBase {
         StringBuilder appUrl = new StringBuilder();
         appUrl.append(getProtocol() + AtfConstants.COLON + AtfConstants.DOUBLE_SLASH
                 + getHost());
-        System.out.println(appUrl);
         String port = getPort();
         if (port != null) {
             appUrl.append(AtfConstants.COLON + port);
@@ -184,6 +185,7 @@ public abstract class AbstractPageBase implements PageBase {
             return protocolValue;
         }
     }
+
 
     /**
      * Gets the port value to launch the application (see: {@link PropertyManager#getPropertyValue})
@@ -354,5 +356,29 @@ public abstract class AbstractPageBase implements PageBase {
     public static Map<String, AbstractPageBase> getPageMap() {
         return pageMap;
     }
+    
+    /**
+     * Gets the IP Address to config proxy for SecurityScan  (see: {@link PropertyManager#getPropertyValue})
+     *
+     * @return the IPAddress as String
+     */
+    public String getProxyHost() {
+        String host = AtfConfiguration.getPropertyValue(PropertyManager.BDD_SMP_PROXY_IPADDRESS);
+        return host;
+    }
+    
+    /**
+     * Gets the port value to config proxy for Security Scan (see: {@link PropertyManager#getPropertyValue})
+     *
+     * @return the port as String
+     */
+    public String getProxyPort() {
+        String port = AtfConfiguration.getPropertyValue(PropertyManager.BDD_SMP_PROXY_PORT);
+        return port;
+    }
+
+
+
+
 
 }

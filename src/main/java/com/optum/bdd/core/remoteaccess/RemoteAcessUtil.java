@@ -161,7 +161,6 @@ public class RemoteAcessUtil {
      *
      * @return - returns a string containing console output of the command.
      */
-
     public String executeCommand(String command, int timeOutInSeconds) {
         JSch jsch = new JSch();
         Session session = null;

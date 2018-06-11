@@ -18,4 +18,5 @@ public interface PageBase {
 
     void close();
 
+
 }

@@ -1,10 +1,11 @@
 com\optum\bdd\rwe\GlobalHooks.class
 com\optum\bdd\rwe\AtfSteps.class
+com\optum\bdd\rwe\pages\KeycloakPageBase.class
 com\optum\bdd\rwe\AbstractPageBase.class
 com\optum\bdd\rwe\spring\AtfConfiguration.class
 com\optum\bdd\rwe\AtfSupport.class
+com\optum\bdd\rwe\pages\KeycloakLogin.class
 com\optum\bdd\rwe\TestRunner.class
-com\optum\bdd\rwe\test\TestJunit.class
 com\optum\bdd\rwe\steps\Login.class
 com\optum\bdd\rwe\PageBase.class
 com\optum\bdd\rwe\PropertyManager.class

@@ -16,13 +16,13 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.logging.LogEntries;
@@ -38,7 +38,6 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.optum.bdd.core.log.LogUtil;
 
 
 /**
@@ -73,6 +72,7 @@ public class WebDriverUtils {
         this.remoteHostIP = remoteHostIP;
         this.remoteHostPort = remoteHostPort;
         this.useRemoteWebDriver = useRemoteWebDriver;
+
     }
 
     /**
@@ -174,10 +174,10 @@ public class WebDriverUtils {
      * @return WebDriver for the Browser under Test / null in case of failure.
      * @throws MalformedURLException
      */
-    public RemoteWebDriver getDriver(String baseURL, 
+    @SuppressWarnings("deprecation")
+	public RemoteWebDriver getDriver(String baseURL, 
             boolean enableBrowserLog)
             throws MalformedURLException {
-        LogUtil.loadConfig();
         logger.debug("********************** WebDriver-INITIALIZED *******************************************");
         RemoteWebDriver driver = null;
         DesiredCapabilities capability = null;
@@ -218,7 +218,7 @@ public class WebDriverUtils {
                     logs.enable(LogType.SERVER, Level.ALL);
                     capability.setCapability(CapabilityType.LOGGING_PREFS, logs);
                     driver = new FirefoxDriver(capability);
-                } else {
+                }else {
                     driver = new FirefoxDriver(capability);
                 }
                 driver.manage().window().maximize();
@@ -321,7 +321,7 @@ public class WebDriverUtils {
                             new URL("http://" + remoteHostIP + ":" + remoteHostPort + "/wd/hub"),
                             capability);
                 } else {
-                    driver = new ChromeDriver(capability);
+                          driver = new ChromeDriver(capability);
                 }
                 driver.manage().window().maximize();
                 driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -479,7 +479,6 @@ public class WebDriverUtils {
         try {
             FileUtils.copyFile(snapshot, new File(path));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

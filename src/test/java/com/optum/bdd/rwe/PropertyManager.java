@@ -675,6 +675,39 @@ public interface PropertyManager {
     public static final String BDD_SMP_CONTENTS = "bdd.smp.contents";
 
     /**
+     * Boolean value indicating to setup proxy for security scan on the same
+     * machine where the tests are run.
+     * <p>
+     * Property key:
+     * <code>
+     * bdd.smp.proxy.enable
+     * </code>
+     */
+    public static final String BDD_SMP_WEBDRIVER_PROXY = "bdd.smp.proxy.enable";
+ 
+    /**
+    * IPAddresss of the machine to setup proxy for security scan on the same
+    * machine where the tests are run.
+    * <p>
+    * Property key:
+    * <code>
+    * bdd.smp.proxy.ipaddress
+    * </code>
+    */
+    public static final String BDD_SMP_PROXY_IPADDRESS = "bdd.smp.proxy.ipaddress";
+    
+    /**
+     * Port value to setup proxy for security scan on the same
+     * machine where the tests are run.
+     * <p>
+     * Property key:
+     * <code>
+     * bdd.smp.proxy.port
+     * </code>
+     */
+     public static final String BDD_SMP_PROXY_PORT = "bdd.smp.proxy.port";
+
+    /**
      * Gets the property value.
      *
      * @param key the key

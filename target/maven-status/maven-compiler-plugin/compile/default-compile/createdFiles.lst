@@ -15,6 +15,7 @@ com\optum\bdd\core\log\LogUtil.class
 com\optum\bdd\core\rest\RestBase$5.class
 com\optum\bdd\core\rest\RestBase$6.class
 com\optum\bdd\core\soap\SoapResponse.class
+META-INF\MANIFEST.MF
 com\optum\bdd\core\soap\BASE64Encoder.class
 com\optum\bdd\core\soap\SoapBase$2.class
 com\optum\bdd\core\soap\SoapBase.class

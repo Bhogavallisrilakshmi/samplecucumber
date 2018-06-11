@@ -7,7 +7,7 @@
    <name>samplecucumber</name>
    <description>samplecucumberframework</description>
    <properties>
-      <maven.javadoc.skip>true</maven.javadoc.skip>
+      <maven.javadoc.skip>false</maven.javadoc.skip>
       <skipTests>true</skipTests>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
    </properties>
@@ -26,6 +26,12 @@
          <scope>test</scope>
          <version>1.2.4</version>
       </dependency>
+      <dependency>
+    <groupId>info.cukes</groupId>
+    <artifactId>cucumber-jvm</artifactId>
+    <version>1.2.4</version>
+    <type>pom</type>
+    </dependency>
       <dependency>
          <groupId>info.cukes</groupId>
          <artifactId>cucumber-java</artifactId>
@@ -74,17 +80,17 @@
       <dependency>
          <groupId>org.seleniumhq.selenium</groupId>
          <artifactId>selenium-java</artifactId>
-         <version>3.4.0</version>
+         <version>3.7.0</version>
       </dependency>
       <dependency>
          <groupId>org.seleniumhq.selenium</groupId>
          <artifactId>selenium-api</artifactId>
-         <version>3.4.0</version>
+         <version>3.7.0</version>
       </dependency>
       <dependency>
          <groupId>org.seleniumhq.selenium</groupId>
          <artifactId>selenium-support</artifactId>
-         <version>3.0.1</version>
+         <version>3.7.0</version>
       </dependency>
       <dependency>
          <groupId>com.codeborne</groupId>
@@ -94,8 +100,13 @@
       <dependency>
          <groupId>com.google.guava</groupId>
          <artifactId>guava</artifactId>
-         <version>21.0</version>
+         <version>23.0</version>
       </dependency>
+      <dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.8.5</version>
+</dependency>
       <dependency>
          <groupId>com.jcraft</groupId>
          <artifactId>jsch</artifactId>
@@ -163,11 +174,6 @@
          <version>1.2.1</version>
       </dependency>
       <dependency>
-         <groupId>org.apache.httpcomponents</groupId>
-         <artifactId>httpcore</artifactId>
-         <version>4.2.5</version>
-      </dependency>
-      <dependency>
          <groupId>org.codehaus.jackson</groupId>
          <artifactId>jackson-mapper-asl</artifactId>
          <version>1.9.12</version>
@@ -201,11 +207,6 @@
          <groupId>org.zaproxy</groupId>
          <artifactId>zap-clientapi</artifactId>
          <version>1.0.0</version>
-      </dependency>
-      <dependency>
-         <groupId>org.apache.httpcomponents</groupId>
-         <artifactId>httpcore</artifactId>
-         <version>4.3.3</version>
       </dependency>
       <dependency>
          <groupId>com.aventstack</groupId>
@@ -269,6 +270,69 @@
                <target>1.8</target>
             </configuration>
          </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.10.4</version>
+            <configuration />
+         </plugin>
+         <!-- Share test classes -->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>test-jar</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>build-sources</id>
+                  <phase>verify</phase>
+                  <goals>
+                     <goal>test-jar-no-fork</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+               <excludePackageNames>*.pages:*.spring:*.utils:*.impl</excludePackageNames>
+               <outputDirectory>${project.build.directory}/javadocs</outputDirectory>
+               <show>public</show>
+               <verbose>true</verbose>
+               <splitindex>true</splitindex>
+               <additionalparam>-Xdoclint:none
+                        --allow-script-in-comments</additionalparam>
+               <additionalDependencies>
+                  <additionalDependency>
+                     <groupId>${project.groupId}</groupId>
+                     <artifactId>${project.artifactId}</artifactId>
+                     <version>${project.version}</version>
+                  </additionalDependency>
+               </additionalDependencies>
+            </configuration>
+            <executions>
+               <execution>
+                  <id>generate-javadoc</id>
+                  <phase>compile</phase>
+                  <goals>
+                     <goal>jar</goal>
+                  </goals>
+                  <configuration>
+                     <additionalparam>-Xdoclint:none</additionalparam>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
           </plugins>
          </build>
          <!-- Reporting Plugin for our project -->
@@ -322,7 +386,7 @@
             <version>3.6.0</version>
             <executions>
                <execution>
-                  <id>execute</id>
+                  <id>GenerateTestReports</id>
                   <phase>test</phase>
                   <goals>
                      <goal>generate</goal>
